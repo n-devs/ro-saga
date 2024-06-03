@@ -57,7 +57,27 @@ function App() {
   return (
     <>
       {play ? (<>
-        {ipv4 && (<iframe src={`https://${ipv4}:8000`} width="100%" height="100%" style={{ border: "none" }} allowFullScreen={true}></iframe>)}
+        {isInstalled() ? (<>
+          {ipv4 && (<iframe src={`https://${ipv4}:8000`} width="100%" height="100%" style={{ border: "none" }} allowFullScreen={true}></iframe>)}
+        </>) : (<>
+          <div id="box-install" style={{
+            position: 'fixed',
+            zIndex: 1,
+            bottom: '10vh',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
+            <button className="button-install" style={{
+              display: 'block',
+              fontSize: 'xxx-large',
+              fontWeight: 'bold',
+            }} onClick={handleClickInstall}>
+              Install
+            </button>
+          </div>
+        </>)}
+
       </>) : (<>
         <RegisterDialog open={register} ipv4={ipv4} onClose={handleCloseRegister}></RegisterDialog>
         <div id="box-install" style={{
