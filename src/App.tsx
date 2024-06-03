@@ -3,6 +3,7 @@ import './button-install.css';
 import { useReactPWAInstall } from './components/pwa-install';
 import { Grid } from '@mui/material';
 import RegisterDialog from './components/RegisterDialog';
+import { isMobile, isAndroid, isFirefox, isIOS, isOpera, browserVersion } from "mobile-device-detect";
 
 function App() {
   const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
@@ -50,6 +51,7 @@ function App() {
           setIPv4(data.ipv4)
         })
     }
+
   }, [])
 
   return (
@@ -75,7 +77,7 @@ function App() {
                 }}>
                   <button className="button-install" style={{
                     display: 'block',
-                    fontSize: 'xxx-large',
+                    fontSize: isMobile ? "large" : 'xxx-large',
                     fontWeight: 'bold',
                   }} onClick={handleClickRegister}>
                     Register
@@ -84,7 +86,7 @@ function App() {
                 <Grid item xs={6} >
                   <button className="button-install" style={{
                     display: 'block',
-                    fontSize: 'xxx-large',
+                    fontSize: isMobile ? "large" : 'xxx-large',
                     fontWeight: 'bold',
                   }} onClick={handleClickPlay}>
                     Play Now!
@@ -99,7 +101,7 @@ function App() {
               {!isInstalled() && (
                 <button className="button-install" style={{
                   display: 'block',
-                  fontSize: 'xxx-large',
+                  fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
                 }} onClick={handleClickInstall}>
                   Install

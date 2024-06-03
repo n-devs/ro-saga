@@ -14,6 +14,7 @@ import Slide from '@mui/material/Slide';
 import { TransitionProps } from '@mui/material/transitions';
 import { Box, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, Input, InputAdornment, InputLabel, Paper, Radio, RadioGroup, TextField } from '@mui/material';
 import { VisibilityOff, Visibility } from '@mui/icons-material';
+import { isMobile, isAndroid, isFirefox, isIOS, isOpera, browserVersion } from "mobile-device-detect";
 
 const Transition = React.forwardRef(function Transition(
     props: TransitionProps & {
@@ -139,10 +140,10 @@ export default function RegisterDialog({ open, ipv4, onClose }: { open: boolean,
                 onClose={onClose}
                 TransitionComponent={Transition}
             >
-                <AppBar sx={{ position: 'relative' }} style={{
+                <AppBar position="fixed" style={{
                     backgroundColor: "#24292e"
                 }} >
-                    <Toolbar>
+                    <Toolbar variant="dense">
 
                         <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                             Register
@@ -159,7 +160,11 @@ export default function RegisterDialog({ open, ipv4, onClose }: { open: boolean,
                     </Toolbar>
                 </AppBar>
                 <Container maxWidth="sm">
-                    <Box sx={{ height: '100vh', display: 'flex' }} >
+                    {isMobile &&(<div style={{height:"190px"}}></div>)}
+                    <Box sx={{
+                        height: '100vh', display: 'flex', justifyContent: 'center',
+                        alignItems: 'center',
+                    }} >
                         <div style={{
                             display: 'flex',
                             justifyContent: 'center',
@@ -304,6 +309,7 @@ export default function RegisterDialog({ open, ipv4, onClose }: { open: boolean,
                         </div>
 
                     </Box>
+                    {isMobile &&(<div style={{height:"190px"}}></div>)}
                 </Container>
             </Dialog>
         </React.Fragment>
