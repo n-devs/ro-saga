@@ -4,12 +4,14 @@ import { useReactPWAInstall } from './components/pwa-install';
 import { Grid } from '@mui/material';
 import RegisterDialog from './components/RegisterDialog';
 import { isMobile, isAndroid, isFirefox, isIOS, isOpera, browserVersion } from "mobile-device-detect";
+import pkg from '../package.json'
 
 function App() {
   const { pwaInstall, supported, isInstalled } = useReactPWAInstall();
   const [ipv4, setIPv4] = React.useState<string>("")
   const [play, setPlay] = React.useState<boolean>(false)
   const [register, setRegister] = React.useState<boolean>(false)
+  const [newUpdate, setNewUpdate] = React.useState<boolean>(false)
 
   const handleClickPlay = () => {
     setPlay(true)
@@ -21,6 +23,51 @@ function App() {
 
   const handleCloseRegister = () => {
     setRegister(false)
+  }
+
+  const handleClickUpdate = () => {
+    if ('caches' in window) {
+      caches.keys().then(function (cacheNames) {
+        cacheNames.forEach(function (cacheName) {
+          caches.delete(cacheName);
+          window.location.reload()
+        });
+      });
+    }
+  }
+
+
+  function validateVersion(v: string) {
+    fetch("https://raw.githubusercontent.com/n-devs/ro-saga/main/package.json").then(res => res.json())
+      .then(data => {
+        if (pkg.version === data.version) {
+          setNewUpdate(false)
+        } else {
+          let pa = pkg.version.split(".")
+          let da = data.version.split(".")
+
+          if (pa[0] < da[0]) {
+            setNewUpdate(true)
+          } else if (pa[0] === da[0]) {
+            if (pa[1] < da[1]) {
+              setNewUpdate(true)
+            } else if (pa[1] === da[1]) {
+              if (pa[2] < da[2]) {
+                setNewUpdate(true)
+              } else if (pa[2] === da[2]) {
+                setNewUpdate(true)
+              } else {
+                setNewUpdate(false)
+              }
+            } else {
+              setNewUpdate(false)
+            }
+          } else {
+            setNewUpdate(false)
+          }
+        }
+
+      })
   }
 
   const handleClickInstall = () => {
@@ -51,11 +98,13 @@ function App() {
           setIPv4(data.ipv4)
         })
     }
+    validateVersion(pkg.version)
 
   }, [])
 
   return (
     <>
+
       {play ? (<>
         {isInstalled() ? (<>
           {ipv4 && (<object data={`https://${ipv4}:8000`} width="100%" height="100%" style={{ border: "none" }} ></object>)}
@@ -103,15 +152,28 @@ function App() {
                     Register
                   </button>
                 </Grid>
-                <Grid item xs={6} >
-                  <button className="button-install" style={{
-                    display: 'block',
-                    fontSize: isMobile ? "large" : 'xxx-large',
-                    fontWeight: 'bold',
-                  }} onClick={handleClickPlay}>
-                    Play Now!
-                  </button>
-                </Grid>
+                {newUpdate ? (<>
+                  <Grid item xs={6} >
+                    <button className="button-install" style={{
+                      display: 'block',
+                      fontSize: isMobile ? "large" : 'xxx-large',
+                      fontWeight: 'bold',
+                    }} onClick={handleClickUpdate}>
+                      Update Now!
+                    </button>
+                  </Grid>
+                </>) : (<>
+                  <Grid item xs={6} >
+                    <button className="button-install" style={{
+                      display: 'block',
+                      fontSize: isMobile ? "large" : 'xxx-large',
+                      fontWeight: 'bold',
+                    }} onClick={handleClickPlay}>
+                      Play Now!
+                    </button>
+                  </Grid>
+                </>)}
+
               </Grid>
             </Grid>
             <Grid item xs={12} style={{
@@ -131,6 +193,13 @@ function App() {
           </Grid>
         </div>
       </>)}
+      <span style={{
+        fontSize: '10px',
+        fontWeight: 'lighter',
+        position: 'fixed',
+        bottom: '0',
+        right: '3px',
+      }}>v{pkg.version}</span>
     </>
   );
 }
