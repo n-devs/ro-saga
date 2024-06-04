@@ -58,7 +58,7 @@ function App() {
     <>
       {play ? (<>
         {isInstalled() ? (<>
-          {ipv4 && (<iframe src={`https://${ipv4}:8000`} width="100%" height="100%" style={{ border: "none" }} allowFullScreen={true}></iframe>)}
+          {ipv4 && (<object data={`https://${ipv4}:8000`} width="100%" height="100%" style={{ border: "none" }} ></object>)}
         </>) : (<>
           <div id="box-install" style={{
             position: 'fixed',
