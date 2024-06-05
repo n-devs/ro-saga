@@ -3,7 +3,7 @@ import './button-install.css';
 import { useReactPWAInstall } from './components/pwa-install';
 import { Grid } from '@mui/material';
 import RegisterDialog from './components/RegisterDialog';
-import { isMobile, isAndroid, isFirefox, isIOS, isOpera, browserVersion } from "mobile-device-detect";
+import { isMobile, isAndroid, isIOS, isWindows, isMacOs } from "mobile-device-detect";
 import pkg from '../package.json'
 
 function App() {
@@ -105,101 +105,91 @@ function App() {
   return (
     <>
 
-      {play ? (<>
-        {isInstalled() ? (<>
-          {ipv4 && (<object data={`https://${ipv4}:8000`} width="100%" height="100%" style={{ border: "none" }} ></object>)}
-        </>) : (<>
-          <div id="box-install" style={{
-            position: 'fixed',
-            zIndex: 1,
-            bottom: '10vh',
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center'
-          }}>
-            <button className="button-install" style={{
-              display: 'block',
-              fontSize: 'xxx-large',
-              fontWeight: 'bold',
-            }} onClick={handleClickInstall}>
-              Install
-            </button>
-          </div>
-        </>)}
-
-      </>) : (<>
-        <RegisterDialog open={register} ipv4={ipv4} onClose={handleCloseRegister}></RegisterDialog>
-        <div id="box-install" style={{
-          position: 'fixed',
-          zIndex: 1,
-          bottom: '10vh',
-          width: '100%',
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Grid container spacing={2}>
-                <Grid item xs={6} style={{
-                  justifyContent: 'flex-end',
-                  display: 'flex',
-                }}>
-                  <button className="button-install" style={{
-                    display: 'block',
-                    fontSize: isMobile ? "large" : 'xxx-large',
-                    fontWeight: 'bold',
-                  }} onClick={handleClickRegister}>
-                    Register
-                  </button>
-                </Grid>
-                {newUpdate ? (<>
-                  <Grid item xs={6} >
-                    <button className="button-install" style={{
-                      display: 'block',
-                      fontSize: isMobile ? "large" : 'xxx-large',
-                      fontWeight: 'bold',
-                    }} onClick={handleClickUpdate}>
-                      Update Now!
-                    </button>
-                  </Grid>
-                </>) : (<>
-                  <Grid item xs={6} >
-                    <button className="button-install" style={{
-                      display: 'block',
-                      fontSize: isMobile ? "large" : 'xxx-large',
-                      fontWeight: 'bold',
-                    }} onClick={handleClickPlay}>
-                      Play Now!
-                    </button>
-                  </Grid>
-                </>)}
-
-              </Grid>
-            </Grid>
-            <Grid item xs={12} style={{
-              justifyContent: 'center',
-              display: 'flex',
-            }}>
-              {!isInstalled() && (
+      <RegisterDialog open={register} ipv4={ipv4} onClose={handleCloseRegister}></RegisterDialog>
+      <div id="box-install" style={{
+        position: 'fixed',
+        zIndex: 1,
+        bottom: '10vh',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center'
+      }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
                 <button className="button-install" style={{
                   display: 'block',
                   fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
-                }} onClick={handleClickInstall}>
-                  Install
+                }} onClick={handleClickRegister}>
+                  Register
                 </button>
-              )}
+              </Grid>
+
+              {isAndroid && (<Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
+                <button className="button-install" style={{
+                  display: 'block',
+                  fontSize: isMobile ? "large" : 'xxx-large',
+                  fontWeight: 'bold',
+                }} onClick={handleClickUpdate}>
+                  Download Android!
+                </button>
+              </Grid>)}
+
+              {isIOS && (<Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
+                <button className="button-install" style={{
+                  display: 'block',
+                  fontSize: isMobile ? "large" : 'xxx-large',
+                  fontWeight: 'bold',
+                }} onClick={handleClickUpdate}>
+                  Not Support!
+                </button>
+              </Grid>)}
+
+              {isMacOs && (<Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
+                <button className="button-install" style={{
+                  display: 'block',
+                  fontSize: isMobile ? "large" : 'xxx-large',
+                  fontWeight: 'bold',
+                }} onClick={handleClickUpdate}>
+                  Not Support!
+                </button>
+              </Grid>)}
+
+
+              {isWindows && (<Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
+                <button className="button-install" style={{
+                  display: 'block',
+                  fontSize: isMobile ? "large" : 'xxx-large',
+                  fontWeight: 'bold',
+                }} onClick={handleClickUpdate}>
+                  Download Window!
+                </button>
+              </Grid>)}
+
+
+
             </Grid>
           </Grid>
-        </div>
-      </>)}
-      <span style={{
-        fontSize: '10px',
-        fontWeight: 'lighter',
-        position: 'fixed',
-        bottom: '0',
-        right: '3px',
-      }}>v{pkg.version}</span>
+
+        </Grid>
+      </div>
     </>
   );
 }
