@@ -138,7 +138,7 @@ function App() {
                   display: 'block',
                   fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
-                }} href="https://github.com/n-devs/ro-saga-android/releases/download/v1.0.1/app-debug.apk" download>
+                }} href="https://github.com/n-devs/ro-saga-android/releases/download/v1.0.2/RO_Saga_v1.0.2.apk" download>
                   Download Android!
                 </a>
               </Grid>)}
