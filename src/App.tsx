@@ -130,7 +130,20 @@ function App() {
                 </button>
               </Grid>
 
-              {isAndroid || isTablet && (<Grid item xs={12} style={{
+              {isAndroid && (<Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
+                <a className="button-install" style={{
+                  display: 'block',
+                  fontSize: isMobile ? "large" : 'xxx-large',
+                  fontWeight: 'bold',
+                }} href="https://github.com/n-devs/ro-saga-android/releases/download/v1.0.2/RO_Saga_v1.0.2.apk" download>
+                  Download Android!
+                </a>
+              </Grid>)}
+
+              {isTablet && (<Grid item xs={12} style={{
                 justifyContent: 'center',
                 display: 'flex',
               }}>
