@@ -3,7 +3,7 @@ import './button-install.css';
 import { useReactPWAInstall } from './components/pwa-install';
 import { Grid } from '@mui/material';
 import RegisterDialog from './components/RegisterDialog';
-import { isMobile, isAndroid, isIOS, isWindows, isMacOs,isTablet } from "mobile-device-detect";
+import { isMobile, isAndroid, isIOS, isWindows, isMacOs, isTablet } from "mobile-device-detect";
 import pkg from '../package.json'
 
 function App() {
@@ -143,7 +143,20 @@ function App() {
                 </a>
               </Grid>)}
 
-              {isTablet && (<Grid item xs={12} style={{
+              {isTablet  && (<Grid item xs={12} style={{
+                justifyContent: 'center',
+                display: 'flex',
+              }}>
+                <a className="button-install" style={{
+                  display: 'block',
+                  fontSize: isMobile ? "large" : 'xxx-large',
+                  fontWeight: 'bold',
+                }} href="https://github.com/n-devs/ro-saga-android/releases/download/v1.0.2/RO_Saga_v1.0.2.apk" download>
+                  Download Android!
+                </a>
+              </Grid>)}
+
+              {isMobile  && (<Grid item xs={12} style={{
                 justifyContent: 'center',
                 display: 'flex',
               }}>
