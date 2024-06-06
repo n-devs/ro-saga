@@ -134,39 +134,39 @@ function App() {
                 justifyContent: 'center',
                 display: 'flex',
               }}>
-                <button className="button-install" style={{
+                <a className="button-install" style={{
                   display: 'block',
                   fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
-                }} onClick={handleClickUpdate}>
+                }} href="https://github.com/n-devs/ro-saga-android/releases/download/v1.0.1/app-debug.apk" download>
                   Download Android!
-                </button>
+                </a>
               </Grid>)}
 
               {isIOS && (<Grid item xs={12} style={{
                 justifyContent: 'center',
                 display: 'flex',
               }}>
-                <button className="button-install" style={{
+                <a className="button-install" style={{
                   display: 'block',
                   fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
-                }} onClick={handleClickUpdate}>
+                }} download>
                   Not Support!
-                </button>
+                </a>
               </Grid>)}
 
               {isMacOs && (<Grid item xs={12} style={{
                 justifyContent: 'center',
                 display: 'flex',
               }}>
-                <button className="button-install" style={{
+                <a className="button-install" style={{
                   display: 'block',
                   fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
-                }} onClick={handleClickUpdate}>
+                }} download>
                   Not Support!
-                </button>
+                </a>
               </Grid>)}
 
 
@@ -174,13 +174,13 @@ function App() {
                 justifyContent: 'center',
                 display: 'flex',
               }}>
-                <button className="button-install" style={{
+                <a className="button-install" style={{
                   display: 'block',
                   fontSize: isMobile ? "large" : 'xxx-large',
                   fontWeight: 'bold',
-                }} onClick={handleClickUpdate}>
+                }} href="https://github.com/n-devs/ro-saga-win/releases/download/v1.0.0/RO.Saga-1.0.0.Setup.exe" download>
                   Download Window!
-                </button>
+                </a>
               </Grid>)}
 
 
